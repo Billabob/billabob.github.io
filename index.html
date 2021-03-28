@@ -1,0 +1,454 @@
+<style>
+	.outer {
+		display: table;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+	.middle {
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.inner {
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+	
+	.centered {
+		text-align: center; 
+		line-height:0.9;
+		color:white;
+	}
+	
+	body {
+		<!-- min-height: 400px; -->
+		<!-- max-height: 50% -->
+		position: relative;
+		vertical-align:middle;
+	}
+</style>
+
+<body style="background-color:#202020">
+	<div class="outer">
+		<div class="middle">
+			<div class="inner">
+				<div class="centered">
+					<h1 id="problem">higana</h1>
+					<button id="reset">RESET</button>
+					<input id="solution">
+					<button id="confirm">OK</button><br><br>
+					<span id="right">right answers: 0</span><br>
+					<span id="wrong">wrong answers: 0</span><br>
+					<span id="total">total answers: 0</span><br>
+					Learn first <input id="amt" size="2" value="73"> items<br>
+					<p id="result"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+statsHTML = {}
+statsHTML.right = document.getElementById("right")
+statsHTML.wrong = document.getElementById("wrong")
+statsHTML.total = document.getElementById("total")
+
+var key = [["7","Caterpie -> Metapod"],
+["7","Weedle -> Kakuna"],
+["7","Wurmple -> Silcoon/Cascoon"],
+["9","Scatterbug -> Spewpa"],["10","Metapod -> Butterfree"],
+["10","Kakuna -> Beedrill"],
+["10","Silcoon -> Beautifly"],
+["10","Cascoon -> Dustox"],
+["10","Kricketot -> Kricketune"],
+["10","Blipbug -> Dottler"],
+["12","Spewpa -> Vivillon"],
+["14","Cyndaquil -> Quilava"],
+["14","Lotad -> Lombre"],
+["14","Seedot -> Nuzleaf"],
+["14","Chimchar -> Monferno"],
+["14","Starly -> Staravia"],
+["14","Pikipek -> Trumbeak"],
+["15","Sentret -> Furret"],
+["15","Mareep -> Flaafy"],
+["15","Wynaut -> Wobbuffet"],
+["15","Bidoof -> Bibarel"],
+["15","Shinx -> Luxio"],
+["16","Bulbasaur -> Ivysaur"],
+["16","Charmander -> Charmeleon"],
+["16","Squirtle -> Wartortle"],
+["16","Nidoran♀ -> Nidorina"],
+["16","Nidoran♂ -> Nidorino"],
+["16","Abra -> Kadabra"],
+["16","Chikorita -> Bayleef"],
+["16","Treecko -> Grovyle"],
+["16","Torchic -> Combusken"],
+["16","Mudkip -> Marshtomp"],
+["16","Piplup -> Prinplup"],
+["16","Lillipup -> Herdier"],
+["16","Chespin -> Quilladin"],
+["16","Fennekin -> Braixen"],
+["16","Froakie -> Frogadier"],
+["16","Grookey -> Thwackey"],
+["16","Scorbunny -> Raboot"],
+["16","Sobble -> Drizzile"],
+["17","Snivy -> Servine"],
+["17","Tepig -> Pignite"],
+["17","Oshawott -> Dewott"],
+["17","Fletchling -> Fletchinder"],
+["17","Rowlet -> Dartrix"],
+["17","Litten -> Torracat"],
+["17","Popplio -> Brionne"],
+["18","Pidgey -> Pidgeotto"],
+["18","Totodile -> Croconaw"],
+["18","Ledyba -> Ledian"],
+["18","Marill -> Azumarill"],
+["18","Hoppip -> Skiploom"],
+["18","Poochyena -> Mightyena"],
+["18","Slakoth -> Vigoroth"],
+["18","Turtwig -> Grotle"],
+["18","Bounsweet -> Tsareena"],
+["18","Rookidee -> Corvisquire"],
+["18","Nickit -> Thievul"],
+["18","Rolycoly -> Carkol"],
+["19","Flabébé -> Floette"],
+["20","Rattata -> Raticate"],
+["20","Spearow -> Fearow"],
+["20","Magikarp -> Gyarados"],
+["20","Hoothoot -> Noctowl"],
+["20","Wooper -> Quagsire"],
+["20","Tyrogue -> Hitmonlee/chan/top"],
+["20","Zigzagoon -> Linoone"],
+["20","Ralts -> Kirlia"],
+["20","Nincada -> Ninjask/Shedinja"],
+["20","Whismur -> Loudred"],
+["20","Beldum -> Metang"],
+["20","Burmy -> Wormadam/Mothim"],
+["20","Patrat -> Watchog"],
+["20","Purrloin -> Liepard"],
+["20","Sewaddle -> Swadloon"],
+["20","Bunnelby -> Diggersby"],
+["20","Yungoos -> Gumshoos"],
+["20","Grubbin -> Charjabug"],
+["20","Gossifleur -> Eldegoss"],
+["21","Oddish -> Gloom"],
+["21","Bellsprout -> Weepinbell"],
+["21","Combee -> Vespiquen"],
+["21","Pidove -> Tranquill"],
+["22","Ekans -> Arbok"],
+["22","Sandshrew -> Sandslash"],
+["22","Zubat -> Golbat"],
+["22","Spinarak -> Ariados"],
+["22","Taillow -> Swellow"],
+["22","Surskit -> Masquerain"],
+["22","Venipede -> Whirlipede"],
+["22","Dewpider -> Araquanid"],
+["22","Chewtle -> Drednaw"],
+["23","Snubbull -> Granbull"],
+["23","Shroomish -> Breloom"],
+["24","Paras -> Parasect"],
+["24","Houndour -> Houndoom"],
+["24","Makuhita -> Hariyama"],
+["24","Gible -> Gabite"],
+["24","Morelull -> Shiinotic"],
+["24","Skwovet -> Greedent"],
+["24","Wooloo -> Dubwool"],
+["25","Poliwag -> Poliwhirl"],
+["25","Geodude -> Graveler"],
+["25","Gastly -> Haunter"],
+["25","Natu -> Xatu"],
+["25","Remoraid -> Octillery"],
+["25","Phanpy -> Donphan"],
+["25","Wingull -> Pelipper"],
+["25","Cherubi -> Cherrim"],
+["25","Roggenrola -> Boldore"],
+["25","Timburr -> Gurdurr"],
+["25","Tympole -> Palpitoad"],
+["25","Espurr -> Meowstic"],
+["25","Cutiefly -> Ribombee"],
+["25","Rockruff -> Lycanroc"],
+["25","Yamper -> Boltund"],
+["26","Diglett -> Dugtrio"],
+["26","Drowzee -> Hypno"],
+["26","Electrike -> Manectric"],
+["26","Gulpin -> Swalot"],
+["26","Buizel -> Floatzel"],
+["26","Arrokuda -> Barraskewda"],
+["27","Chinchou -> Lanturn"],
+["27","Skiploom -> Jumpluff"],
+["27","Blitzle -> Zebstrika"],
+["27","Stufful -> Bewear"],
+["28","Meowth -> Persian"],
+["28","Mankey -> Primeape"],
+["28","Machop -> Machoke"],
+["28","Krabby -> Kingler"],
+["28","Cubone -> Marowak"],
+["28","Drifloon -> Drifblim"],
+["28","Trumbeak -> Toucannon"],
+["28","Sizzlipede -> Centiskorch"],
+["29","Sandile -> Krokorok"],
+["30","Tentacool -> Tentacruel"],
+["30","Magnemite -> Magneton"],
+["30","Voltorb -> Electrode"],
+["30","Dratini -> Dragonair"],
+["30","Croconaw -> Feraligatr"],
+["30","Flaaffy -> Ampharos"],
+["30","Teddiursa -> Ursaring"],
+["30","Smoochum -> Jynx"],
+["30","Elekid -> Electabuzz"],
+["30","Magby -> Magmar"],
+["30","Larvitar -> Pupitar"],
+["30","Kirlia -> Gardevoir"],
+["30","Carvanha -> Sharpedo"],
+["30","Barboach -> Whiscash"],
+["30","Corphish -> Crawdaunt"],
+["30","Bagon -> Shelgon"],
+["30","Luxio -> Luxray"],
+["30","Cranidos -> Rampardos"],
+["30","Shieldon -> Bastiodon"],
+["30","Shellos -> Gastrodon"],
+["30","Whirlipede -> Scolipede"],
+["30","Zorua -> Zoroark"],
+["30","Inkay -> Malamar"],
+["30","Mudbray -> Mudsdale"],
+["30","Wimpod -> Golisopod"],
+["30","Dottler -> Orbeetle"],
+["30","Toxel -> Toxtricity"],
+["31","Venonat -> Venomoth"],
+["31","Doduo -> Dodrio"],
+["31","Pineco -> Forretress"],
+["31","Finneon -> Lumineon"],
+["31","Drilbur -> Excadrill"],
+["32","Ivysaur -> Venusaur"],
+["32","Horsea -> Seadra"],
+["32","Bayleef -> Meganium"],
+["32","Aron -> Lairon"],
+["32","Spoink -> Grumpig"],
+["32","Cacnea -> Cacturne"],
+["32","Spheal -> Sealeo"],
+["32","Grotle -> Torterra"],
+["32","Herdier -> Stoutland"],
+["32","Tranquill -> Unfezant"],
+["32","Gothita -> Gothorita"],
+["32","Solosis -> Duosion"],
+["32","Skiddo -> Gogoat"],
+["32","Pancham -> Pangoro"],
+["32","Hatenna -> Hattrem"],
+["32","Impidimp -> Morgrem"],
+["33","Psyduck -> Golduck"],
+["33","Goldeen -> Seaking"],
+["33","Swinub -> Piloswine"],
+["33","Numel -> Camerupt"],
+["33","Bronzor -> Bronzong"],
+["33","Salandit -> Salazzle"],
+["34","Seel -> Dewgong"],
+["34","Staravia -> Staraptor"],
+["34","Stunky -> Skuntank"],
+["34","Hippopotas -> Hippowdon"],
+["34","Dwebble -> Crustle"],
+["34","Yamask -> Cofagrigus"],
+["34","Deerling -> Sawsbuck"],
+["34","Dartrix -> Decidueye"],
+["34","Torracat -> Incineroar"],
+["34","Brionne -> Primarina"],
+["34","Fomantis -> Lurantis"],
+["34","Carkol -> Coalossal"],
+["34","Cufant -> Copperajah"],
+["35","Koffing -> Weezing"],
+["35","Linoone -> Obstagoon"],
+["35","Trapinch -> Vibrava"],
+["35","Swablu -> Altaria"],
+["35","Darumaka -> Darmanitan"],
+["35","Ducklett -> Swanna"],
+["35","Vanillite -> Vanillish"],
+["35","Fletchinder -> Talonflame"],
+["35","Litleo -> Pyroar"],
+["35","Honedge -> Doublade"],
+["35","Jangmo-o -> Hakomo-o"],
+["35","Thwackey -> Rillaboom"],
+["35","Raboot -> Cinderace"],
+["35","Drizzile -> Inteleon"],
+["36","Charmeleon -> Charizard"],
+["36","Wartortle -> Blastoise"],
+["36","Pidgeotto -> Pidgeot"],
+["36","Quilava -> Typhlosion"],
+["36","Grovyle -> Sceptile"],
+["36","Combusken -> Blaziken"],
+["36","Marshtomp -> Swampert"],
+["36","Vigoroth -> Slaking"],
+["36","Baltoy -> Claydol"],
+["36","Monferno -> Infernape"],
+["36","Prinplup -> Empoleon"],
+["36","Servine -> Serperior"],
+["36","Pignite -> Emboar"],
+["36","Dewott -> Samurott"],
+["36","Palpitoad -> Seismitoad"],
+["36","Trubbish -> Garbodor"],
+["36","Joltik -> Galvantula"],
+["36","Quilladin -> Chesnaught"],
+["36","Braixen -> Delphox"],
+["36","Frogadier -> Greninja"],
+["36","Silicobra -> Sandaconda"],
+["37","Slowpoke -> Slowbro"],
+["37","Meditite -> Medicham"],
+["37","Shuppet -> Banette"],
+["37","Duskull -> Dusclops"],
+["37","Croagunk -> Toxicroak"],
+["37","Tirtouga -> Carracosta"],
+["37","Archen -> Archeops"],
+["37","Cubchoo -> Beartic"],
+["37","Clauncher -> Clawitzer"],
+["37","Bergmite -> Avalugg"],
+["38","Grimer -> Muk"],
+["38","Slugma -> Magcargo"],
+["38","Corsola -> Cursola"],
+["38","Glameow -> Purugly"],
+["38","Klink -> Klang"],
+["38","Axew -> Fraxure"],
+["38","Mareanie -> Toxapex"],
+["38","Corvisquire -> Corviknight"],
+["39","Scraggy -> Scrafty"],
+["39","Foongus -> Amoonguss"],
+["39","Tynamo -> Eelektrik"],
+["39","Binacle -> Barbaracle"],
+["39","Tyrunt -> Tyrantrum"],
+["39","Amaura -> Aurorus"],
+["40","Ponyta -> Rapidash"],
+["40","Omanyte -> Omastar"],
+["40","Kabuto -> Kabutops"],
+["40","Loudred -> Exploud"],
+["40","Wailmer -> Wailord"],
+["40","Lileep -> Cradily"],
+["40","Anorith -> Armaldo"],
+["40","Skorupi -> Drapion"],
+["40","Snover -> Abomasnow"],
+["40","Krokorok -> Krookodile"],
+["40","Frillish -> Jellicent"],
+["40","Ferroseed -> Ferrothorn"],
+["40","Goomy -> Sliggoo"],
+["41","Gothorita -> Gothitelle"],
+["41","Duosion -> Reuniclus"],
+["41","Litwick -> Lampent"],
+["42","Rhyhorn -> Rhydon"],
+["42","Mr. Mime -> Mr. Rime"],
+["42","Lairon -> Aggron"],
+["42","Snorunt -> Glalie"],
+["42","Elgyem -> Beheeyem"],
+["42","Sandygast -> Palossand"],
+["42","Hattrem -> Hatterene"],
+["42","Morgrem -> Grimmsnarl"],
+["43","Golett -> Golurk"],
+["43","Cosmog -> Cosmoem"],
+["44","Sealeo -> Walrein"],
+["45","Vibrava -> Flygon"],
+["45","Metang -> Metagross"],
+["45","Hakamo-o -> Kommo-o"],
+["47","Vanillish -> Vanilluxe"],
+["48","Gabite -> Garchomp"],
+["48","Fraxure -> Haxorus"],
+["48","Skrelp -> Dragalge"],
+["48","Noibat -> Noivern"],
+["49","Klang -> Klinklang"],
+["50","Shelgon -> Salamence"],
+["50","Mienfoo -> Mienshao"],
+["50","Deino -> Zweilous"],
+["50","Sliggoo -> Goodra"],
+["50","Dreepy -> Drakloak"],
+["52","Pawniard -> Bisharp"],
+["53","Cosmoem -> Solgaleo/Lunala"],
+["54","Rufflet -> Braviary"],
+["54","Vullaby -> Mandibuzz"],
+["55","Dragonair -> Dragonite"],
+["55","Pupitar -> Tyranitar"],
+["59","Larvesta -> Volcarona"],
+["60","Drakloak -> Dragapult"],
+["42","Boldore -> Gigalith"], //special ones
+["35","Graveler -> Golem"],
+["50","Gurdurr -> Conkeldurr"],
+["40","Haunter -> Gengar"],
+["32","Kadabra -> Alakazam"],
+["46","Karrablast -> Escavalier"],
+["40","Machoke -> Machamp"],
+["45","Phantump -> Trevenant"],
+["45","Pumpkaboo -> Gourgeist"],
+["46","Shelmet -> Accelgor"]]
+	
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+var numbers = []
+var lastnumber = []
+var score = {}
+var wronganswermode = false
+score.right = 0
+score.wrong = 0
+
+function Clicked(){
+	if(document.getElementById("solution").value == ""){
+		return
+	}
+	var correct = (numbers[0] == document.getElementById("solution").value)
+	if(correct){
+		if(!wronganswermode){
+			document.getElementById("result").innerHTML = "that is very correct you are very smart <span style=\"color:green\">" + numbers[1] + " is indeed " + numbers[0] + "</span>"
+			score.right = score.right + 1
+		}
+		wronganswermode=false
+	}else{
+		score.wrong = score.wrong + 1
+		statsHTML.wrong.innerHTML = "wrong answers: " + score.wrong
+		statsHTML.total.innerHTML = "total answers: " + (score.right + score.wrong)
+		document.getElementById("result").innerHTML = "this is the dumbest answer ever <span style=\"color:red\">" + numbers[1] + " is obviously " + numbers[0] + " not " + document.getElementById("solution").value + "</span>"
+		document.getElementById("solution").value = "" // leave blank
+		wronganswermode=true;return
+	}
+	statsHTML.right.innerHTML = "right answers: " + score.right
+	statsHTML.wrong.innerHTML = "wrong answers: " + score.wrong
+	statsHTML.total.innerHTML = "total answers: " + (score.right + score.wrong)
+	init()
+	document.getElementById("solution").value = "" // leave blank
+}
+
+var solution = document.getElementById("solution");
+solution.addEventListener("keydown", function(event) {
+	if (event.keyCode === 13) {
+	 document.getElementById("confirm").click();
+	}
+})
+
+function Reset(){
+	lastnumber = []
+	score = {}
+	wronganswermode = false
+	score.right = 0
+	score.wrong = 0
+	init()
+	statsHTML.right.innerHTML = "right answers: " + score.right
+	statsHTML.wrong.innerHTML = "wrong answers: " + score.wrong
+	statsHTML.total.innerHTML = "total answers: " + (score.right + score.wrong)
+	document.getElementById("result").innerHTML = ""
+	document.getElementById("solution").value = "" // leave blank
+}
+
+function init(){
+	//yea
+	lastnumber=numbers //deduping
+	while(numbers==lastnumber){
+		numbers = key[getRandomInt(0, Math.min(Math.max(document.getElementById("amt").value,2),key.length))]
+	}
+	document.getElementById("problem").innerHTML = numbers[1]
+}
+
+init()
+document.getElementById("confirm").onclick = Clicked
+document.getElementById("reset").onclick = Reset
+ </script>
