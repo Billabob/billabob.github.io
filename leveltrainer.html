@@ -45,7 +45,7 @@
 					<span id="right">right answers: 0</span><br>
 					<span id="wrong">wrong answers: 0</span><br>
 					<span id="total">total answers: 0</span><br>
-					Learn first <input id="amt" size="2" value="73"> items<br>
+					Pull from range <input id="amt" size="2" value="1"> to <input id="amtend" size="2" value="73"> (inclusive)<br>
 					<p id="result"></p>
 				</div>
 			</div>
@@ -443,7 +443,7 @@ function init(){
 	//yea
 	lastnumber=numbers //deduping
 	while(numbers==lastnumber){
-		numbers = key[getRandomInt(0, Math.min(Math.max(document.getElementById("amt").value,2),key.length))]
+		numbers = key[getRandomInt(Math.min(Math.max(document.getElementById("amt").value-1,0),key.length-2), Math.min(Math.max(document.getElementById("amtend").value,2),key.length))]
 	}
 	document.getElementById("problem").innerHTML = numbers[1]
 }
