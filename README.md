@@ -16,19 +16,27 @@ Currently there are 5 alphabets implemented. Contributions are welcome. I do not
 
 ## TODO list:
 
-- More languages
--- More Cyrillic options
--- Greek
--- South Asian scripts
--- SE Asian scripts
--- Hangul
--- Ge'ez
--- Caucasus scripts
--- North American scripts
--- Historical scripts such as Sumerian & Akkadian
--- Probably not Hanzi or Kanji
-- Improve Arabic implementation (vocalisation logic etc)
-- Spaced repetition system?
+- More languages<br>
+-- More Cyrillic options<br>
+-- Greek<br>
+-- South Asian scripts<br>
+-- SE Asian scripts<br>
+-- Hangul<br>
+-- Ge'ez<br>
+-- Caucasus scripts<br>
+-- North American scripts<br>
+-- Historical scripts such as Sumerian & Akkadian<br>
+-- Probably not Hanzi or Kanji<br>
+- Improve Arabic implementation (vocalisation logic etc)<br>
+- Spaced repetition system?<br>
 - Spruce up the visuals to use less default HTML objects
 
 ## Changelog
+
+### v1 - 2025-05-29
+
+Initial release on Github. Hiragana, Katakana, Russian, Cyrillic Soup, Arabic Consonants.
+
+### v0 - 2020-10-04
+
+Made the page to teach myself Kana
