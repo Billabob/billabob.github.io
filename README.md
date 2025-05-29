@@ -30,6 +30,7 @@ Currently there are 5 alphabets implemented. Contributions are welcome. I do not
 - Improve Arabic implementation (vocalisation logic etc)<br>
 - Spaced repetition system?<br>
 - Spruce up the visuals to use less default HTML objects
+- Revamp old bad code
 
 ## Changelog
 

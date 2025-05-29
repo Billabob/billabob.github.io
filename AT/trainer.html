@@ -82,14 +82,14 @@
 			<span id="right">right: 0</span><br>
 			<span id="wrong">wrong: 0</span><br>
 			<span id="total">total: 0</span><br><br>
-			<input type="image" src="C:\Users\billa\OneDrive\Documents\alphabettrainer\settings.png" onclick="toggleSettings()" style="width:3%;height:auto" id="sb"><br>
+			<input type="image" src="/AT/settings.png" onclick="toggleSettings()" style="width:3%;height:auto" id="sb"><br>
 			<span id="settings" hidden="true">
 				<label for="lang">Current alphabet:</label><select name="lang" id="lang" onchange="updateLang()"><option value="Hiragana">Hiragana</option></select><br>
 				Learn from range: <input id="amtmin" size="2" value="1" onChange="updateMin()">to<input id="amtmax" size="2" value="73" onChange="updateMax()"> (inclusive)<br>
 				<input id="problemlength" size="1" value="1" onchange="updateCharCount()"> character(s) per round
 			</span>
 			<p id="result">Type into the box and click "OK" or press Enter to submit your answers</p>
-			<input type="image" src="C:\Users\billa\OneDrive\Documents\alphabettrainer\settings.png" onclick="toggleCheatSheet()" style="width:3%;height:auto" id="cs"></input>
+			<input type="image" src="/AT/settings.png" onclick="toggleCheatSheet()" style="width:3%;height:auto" id="cs"></input>
 		</div>
 		<div class="cheat-sheet" id="cheatSheet">
 			<h2>Cheat Sheet</h2>
@@ -257,9 +257,9 @@ function updateCharCount(){
 function toggleSettings(){
 	document.getElementById("settings").hidden = !document.getElementById("settings").hidden
 	if(document.getElementById("settings").hidden){
-		document.getElementById("sb").src = "C:\\Users\\billa\\OneDrive\\Documents\\alphabettrainer\\settings.png"
+		document.getElementById("sb").src = "/AT/settings.png"
 	}else{
-		document.getElementById("sb").src = "C:\\Users\\billa\\OneDrive\\Documents\\alphabettrainer\\settingsdark.png"
+		document.getElementById("sb").src = "/AT/settingsdark.png"
 	}
 }
 
@@ -298,11 +298,11 @@ function makeCheatSheet(){
 function toggleCheatSheet() {
 	document.getElementById("mainWrapper").classList.toggle("cheat-active");
 	if(document.getElementById("mainWrapper").classList.contains("cheat-active")){
-		document.getElementById("cs").src = "C:\\Users\\billa\\OneDrive\\Documents\\alphabettrainer\\settingsdark.png"
+		document.getElementById("cs").src = "/AT/settingsdark.png"
 		//build the actual sheet (table)
 		makeCheatSheet()
 	}else{
-		document.getElementById("cs").src = "C:\\Users\\billa\\OneDrive\\Documents\\alphabettrainer\\settings.png"
+		document.getElementById("cs").src = "/AT/settings.png"
 	}
 }
 
