@@ -1,6 +1,8 @@
 # alphabet trainer
 A simple webpage for learning scripts, principally for Geoguessr
 
+https://billabob.github.io/AT/trainer.html
+
 ## How to use:
 
 You will be prompted with a randomly selected character or string of characters. Type the Latin transliteration into the text box, then press Enter or click "OK". If you get the answer wrong, you will have to type it in correctly to proceed. Click "Reset" to reset your current scores to 0.
