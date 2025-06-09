@@ -13,6 +13,7 @@
 		height: 100%;
 		width: 100%;
 		position: relative;
+		overflow: hidden;
 	}
 
 	.container {
@@ -27,18 +28,43 @@
 		transform: translateX(-10%);
 	}
 
-	.cheat-sheet {
-		text-align: center;
-		width: 0;
-		opacity: 0;
-		overflow: hidden;
+	.wrapper.settings-active .container {
+		transform: translateX(7%);
+	}
+
+	.cheat-sheet, .settings {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 30%;
 		background-color: #303030;
-		transition: width 0.3s ease, opacity 0.3s ease;
+		text-align: center;
 		padding: 1em;
+		transition: transform 0.3s ease, opacity 0.3s ease;
+		opacity: 0;
+	}
+
+	.cheat-sheet {
+		right: 0;
+		transform: translateX(100%);
+	}
+
+	.settings {
+		left: 0;
+		transform: translateX(-100%);
+		display: flex;
+		flex-direction: column;
+		width: 20%;
+		height: 100vh;
 	}
 
 	.wrapper.cheat-active .cheat-sheet {
-		width: 40%;
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	.wrapper.settings-active .settings {
+		transform: translateX(0);
 		opacity: 1;
 	}
 
@@ -47,33 +73,90 @@
 		padding: 0.3em 0.8em;
 		margin: 0.3em;
 	}
-	
+
 	table {
 		width: 100%;
 	}
-	
+
 	tr {
 		background-color: #EEEEEE;
 		text-align: center;
 		color: black;
-		height: 30;
+		height: 30px;
 	}
-	
+
 	tr:nth-child(even) {
 		background-color: #DDDDDD;
 	}
-	
+
 	td {
 		width: 10%;
 	}
-	
+
 	td:nth-child(even) {
 		border-right: 3px solid black;
+	}
+
+	.header {
+		flex-shrink: 0;
+	}
+
+	.folderspace {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.folderbox {
+		flex: 1;
+		overflow-y: auto;
+		border: 1px solid black;
+		box-sizing: border-box;
+		margin-bottom: 5vh;
+		min-height: 0;
+	}
+
+	.folderitem {
+		display: flex;
+		align-items: center;
+		box-sizing: border-box;
+		padding: 1px;
+		height: 40px;
+		width: 100%;
+		flex: 0 0 auto;
+	}
+
+	.foldersquare {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid black;
+		box-sizing: border-box;
+		height: 36px;
+		width: 36px;
+		margin-right: 16px;
+		user-select: none;
+	}
+
+	.mychildren {
+		margin-left: 16px;
 	}
 </style>
 
 <body>
 	<div class="wrapper" id="mainWrapper">
+		<div class="settings" id="settings">
+			<div class="header">
+				Range: <input id="amtmin" size="1" value="1" onChange="updateMin()">to<input id="amtmax" size="1" value="73" onChange="updateMax()"><br>
+				<input id="problemlength" size="1" value="1" onchange="updateCharCount()"> character(s) per round
+			</div>
+			<br>
+			<div class="folderspace">
+				<div class="folderbox" id="folderbox">
+				</div>
+			</div>
+		</div>	
 		<div class="container">
 			<h1 style="font-size:4em" id="problem">if you are seeing this something has gone wrong :(</h1>
 			<button id="reset">RESET</button>
@@ -82,22 +165,18 @@
 			<span id="right">right: 0</span><br>
 			<span id="wrong">wrong: 0</span><br>
 			<span id="total">total: 0</span><br><br>
-			<input type="image" src="/AT/settings.png" onclick="toggleSettings()" style="width:3%;height:auto" id="sb"><br>
-			<span id="settings" hidden="true">
-				<label for="lang">Current alphabet:</label><select name="lang" id="lang" onchange="updateLang()"><option value="Hiragana">Hiragana</option></select><br>
-				Learn from range: <input id="amtmin" size="2" value="1" onChange="updateMin()">to<input id="amtmax" size="2" value="73" onChange="updateMax()"> (inclusive)<br>
-				<input id="problemlength" size="1" value="1" onchange="updateCharCount()"> character(s) per round
-			</span>
+			<input type="image" src="https://billabob.github.io/AT/settings.png" onclick="toggleSettings()" style="width:3%;height:auto" id="sb"><br>
 			<p id="result">Type into the box and click "OK" or press Enter to submit your answers</p>
-			<input type="image" src="/AT/settings.png" onclick="toggleCheatSheet()" style="width:3%;height:auto" id="cs"></input>
+			<input type="image" src="https://billabob.github.io/AT/settings.png" onclick="toggleCheatSheet()" style="width:3%;height:auto" id="cs"></input>
 		</div>
 		<div class="cheat-sheet" id="cheatSheet">
-			<h2>Cheat Sheet</h2>
+			<!--<h2>Cheat Sheet</h2>-->
 			<table id="cheattable"></table>
 		</div>
 	</div>
 
 <script>
+
 statsHTML = {}
 statsHTML.right = document.getElementById("right")
 statsHTML.wrong = document.getElementById("wrong")
@@ -160,6 +239,27 @@ let alphaKeys = { //questions go first, all answers come afterwards
 			"Pattern":"CVC",
 			"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27],
 			"Vowels":[0,5,6,9,15,20,28,29,30]},
+		"Major European Cyrillic":
+			{"Script":
+			[["а","a"],["б","b"],["в","v"],["г","g"],["д","d"],
+			["е","e","je","ye"],["ё","o","jo","yo"],["ж","zh","ž"],["з","z"],["и","i"],
+			["й","y","i","j"],["к","k"],["л","l"],["м","m"],["н","n"],
+			["о","o"],["п","p"],["р","r"],["с","s"],["т","t"],
+			["у","u"],["ф","f"],["х","kh","h"],["ц","ts","c"],["ч","ch","č"],
+			["ш","sh","š"],["щ","sch","shch","šč","śś","sht","št"],/*["ъ","\"","ʺ"],*/["ы","y"],/*["ь","'","ʹ"],*/
+			["э","e","è"],["ю","yu","ju"],["я","ya","ja"],
+			["ъ","a","ǎ"], //bulgarian
+			["ђ","dj","đ","ď"],["љ","lj","ļ"],["њ","nj","ń","ň","ñ","ņ"],["ћ","tj","ć","tsh"],["џ","dzh","dž"], //serbian
+			["з́","zj","ź"],["с́","sj","ś"], //montenegrin
+			["s","dz"],["ѓ","gj","ǵ"],["ќ","kj","ḱ"], //macedonian //41
+			["і","i"],["ў","w","ŭ"], //belarusian, ukrainian
+			["ґ","g"],["є","ye","ê"],["ї","i","yi","ji"], //ukrainian
+			["ӂ","g","ge","gi"]], //moldovan
+			"BlankValues":{},
+			"Cased":true,
+			"Pattern":"CVC",
+			"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27,32,33,34,35,36,37,38,39,40,41,43,44,47],
+			"Vowels":[0,5,6,9,15,20,28,29,30,31,42,45,46]},
 		"Cyrillic Soup":
 			{"Script":
 			[["а","a"],["б","b"],["в","v"],["г","g","h"],["д","d"],
@@ -199,6 +299,30 @@ let alphaKeys = { //questions go first, all answers come afterwards
 			"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27,32,33,34,35,36,37,38,39,40,
 				41,43,44,47,49,51,53,54,56,62,64,65,66,67,68,69,70,75,76,77,78,79,80,81,82,83,84,85,86,88,89,90,91],
 			"Vowels":[0,5,6,9,15,20,28,29,30,31,42,45,46,48,50,52,55,57,58,59,60,61,63,71,72,73,74,87]},
+		"Modern Greek":
+			{"Script":
+			[["α","a"],["β","v"],["γ","g"],["δ","th"],["ε","e","ea","é"],
+			["ζ","z"],["η","i"],["θ","th"],["ι","i"],["κ","k"],
+			["λ","l"],["μ","m"],["ν","n"],["ξ","ks","x"],["ο","o"],
+			["π","p"],["ρ","r"],["σ","s"],["τ","t"],["υ","i"],
+			["φ","ph","f"],["χ","ch"],["ψ","ps"],["ω","o"]],
+			"BlankValues":{},
+			"Cased":true,
+			"Pattern":"CVC",
+			"Consonants":[1,2,3,5,7,9,10,11,12,13,15,16,17,18,20,21,22],
+			"Vowels":[0,4,6,8,14,19,23]},
+		"Ancient Greek":
+			{"Script":
+			[["α","a"],["β","b"],["γ","g","ng"],["δ","d"],["ε","e","ea","é"],
+			["ζ","zd","sd"],["η","e"],["θ","t","th"],["ι","i"],["κ","k"],
+			["λ","l"],["μ","m"],["ν","n"],["ξ","ks","x"],["ο","o"],
+			["π","p"],["ρ","r"],["σ","s"],["τ","t"],["υ","u"],
+			["φ","ph","p"],["χ","ch","kh"],["ψ","ps"],["ω","o","aw"]],
+			"BlankValues":{},
+			"Cased":true,
+			"Pattern":"CVC",
+			"Consonants":[1,2,3,5,7,9,10,11,12,13,15,16,17,18,20,21,22],
+			"Vowels":[0,4,6,8,14,19,23]},
 		"Arabic Consonants":
 			{"Script":
 			[["ا","'","ʾ","ā","a"],["ب","b"],["ت","t"],["ث","th","ṯ","_t"],["ج","j","ǧ"],
@@ -209,8 +333,102 @@ let alphaKeys = { //questions go first, all answers come afterwards
 			["ه","n"],["و","h"],["ي","w","u","oo","ū"],["ء","'","ʾ","2"],["آ","ʼā","'a","2a","aa"],
 			["ة","h","t","ah","eh","at","et"],["ال","al","el"]],
 			"BlankValues":{},
-			"Cased":false}
+			"Cased":false},
+		"Dutch":
+			{"Script":
+			[["a","a"],["b","b"],["c","c"],["d","d"],["e","e"],
+			["f","f"],["g","g"],["h","h"],["i","i"],["j","j"],
+			["k","k"],["l","l"],["m","m"],["n","n"],["o","o"],
+			["p","p"],["q","q"],["r","r"],["s","s"],["t","t"],
+			["u","u"],["v","v"],["w","w"],["x","x"],["ij","y"],
+			["y","y"],["z","z"]],
+			"BlankValues":{},
+			"Cased":true,
+			"Pattern":"CVC",
+			"Consonants":[1,2,3,5,7,9,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26],
+			"Vowels":[0,4,8,14,20]}
 		}
+
+let folderStructure = {
+	"Kana":{"Hiragana":"ひ","Katakana":"カ"},
+	"Cyrillic":{
+		"Europe":{"Russian":"Ж","Major European Cyrillic":"Є"},
+		"Asia":{"Russian":"Ж"},
+		"Cyrillic Soup":"Ӄ"
+	},
+	"Europe":{"Dutch":"IJ","Russian":"Ж","Greek":{"Ancient Greek":"Ω","Modern Greek":"Ψ"}},
+	"Asia":{"Russian":"Ж","Arabic Consonants":"خ","Kana":{"Hiragana":"ひ","Katakana":"カ"}},
+	"Africa":{"Arabic Consonants":"خ"}
+//	"Hi":":)"
+}
+
+let folderChildren = {}
+function addFc(f,fk){ //convert folderStructure object to something the other scripts can process
+	let fc={Folders:[],Items:[]}
+	for(let [k, v] of Object.entries(f)){
+		if(typeof(v)=="object"){
+			fc.Folders[fc.Folders.length]=[fk+"."+k,k]
+			addFc(v,fk+"."+k)
+		}else{
+			fc.Items[fc.Items.length]=[v,k]
+		}
+	}
+	folderChildren[fk]=fc
+}
+addFc(folderStructure,"folderbox")
+console.log(folderChildren)
+
+function closeFolder(folder){
+	let fb=document.getElementById(folder)
+	fb.getElementsByClassName("mychildren")[0].innerHTML=""
+	let fs=fb.getElementsByClassName("foldersquare")[0]
+	fs.innerHTML=">"
+	fs.setAttribute("onclick",'openFolder("'+folder+'")')
+}
+
+function openFolder(folder){ //parent is the path string like "folderbox.Asia"
+	console.log(folder)
+	let fb=document.getElementById(folder)
+	let fc=folderChildren[folder]
+	
+	if(folder!="folderbox"){
+		let fs=fb.getElementsByClassName("foldersquare")[0]
+		fs.innerHTML="v"
+		fs.setAttribute("onclick",'closeFolder("'+folder+'")')
+		fb=fb.getElementsByClassName("mychildren")[0]
+	}
+	
+	let keys=["Folders","Items"]
+	for(let n=0;n<2;n++){
+		let fk=fc[keys[n]]
+		for(let i=0;i<fk.length;i++){
+			let e=document.createElement("div")
+			e.setAttribute("id",fk[i][0])
+			e.setAttribute("script",fk[i][1])
+			let el=document.createElement("div")
+			el.classList.add("folderitem")
+			let fs=document.createElement("div")
+			fs.classList.add("foldersquare")
+			fs.innerHTML=">"
+			if(n==1){
+				fs.innerHTML = fk[i][0]
+				fs.setAttribute("onclick",'updateLang("'+fk[i][1]+'")')
+			}else{
+				fs.setAttribute("onclick",'openFolder("'+fk[i][0]+'")')
+			}
+			let mc=document.createElement("div")
+			mc.classList.add("mychildren")
+			
+			el.appendChild(fs)
+			el.innerHTML+=fk[i][1]
+			e.appendChild(el)
+			e.appendChild(mc)
+			fb.appendChild(e)
+		}
+	}
+}
+//set up initial folder view
+openFolder("folderbox")
 
 let key=alphaKeys["Hiragana"] 
 
@@ -237,9 +455,9 @@ function updateMax(){
 	init()
 }
 
-function updateLang(){
+function updateLang(toset){
 	let refreshmax=document.getElementById("amtmax").value==key.Script.length
-	key=alphaKeys[document.getElementById("lang").value]
+	key=alphaKeys[toset]
 	if(refreshmax){
 		document.getElementById("amtmax").value = key.Script.length
 	}
@@ -255,11 +473,14 @@ function updateCharCount(){
 }
 
 function toggleSettings(){
-	document.getElementById("settings").hidden = !document.getElementById("settings").hidden
-	if(document.getElementById("settings").hidden){
-		document.getElementById("sb").src = "/AT/settings.png"
+	document.getElementById("mainWrapper").classList.toggle("settings-active");
+	if(document.getElementById("mainWrapper").classList.contains("settings-active")){
+		if(document.getElementById("mainWrapper").classList.contains("cheat-active")){
+			toggleCheatSheet()
+		}
+		document.getElementById("sb").src = "https://billabob.github.io/AT/settingsdark.png"
 	}else{
-		document.getElementById("sb").src = "/AT/settingsdark.png"
+		document.getElementById("sb").src = "https://billabob.github.io/AT/settings.png"
 	}
 }
 
@@ -298,11 +519,14 @@ function makeCheatSheet(){
 function toggleCheatSheet() {
 	document.getElementById("mainWrapper").classList.toggle("cheat-active");
 	if(document.getElementById("mainWrapper").classList.contains("cheat-active")){
-		document.getElementById("cs").src = "/AT/settingsdark.png"
+		if(document.getElementById("mainWrapper").classList.contains("settings-active")){
+			toggleSettings()
+		}
+		document.getElementById("cs").src = "https://billabob.github.io/AT/settingsdark.png"
 		//build the actual sheet (table)
 		makeCheatSheet()
 	}else{
-		document.getElementById("cs").src = "/AT/settings.png"
+		document.getElementById("cs").src = "https://billabob.github.io/AT/settings.png"
 	}
 }
 
@@ -416,13 +640,13 @@ function init(){ //actually this is more like the "generate me a new problem" fu
 		for(i=0;i<stringlen;i++){
 			if(key.Pattern=="CVC"){ //repeating consonant-vowel-consonant to try and get more natural-feeling words
 				if(i%3==1){ //V
-					console.log("V")
+					//console.log("V")
 					let x = getRandomInt(vowelmin, vowelmax+1)
 					indnum[indnum.length] = key.Script[key.Vowels[x]]
 					numbers[0] = numbers[0] + key.Script[key.Vowels[x]][0]
 					numbers[1] = numbers[1] + key.Script[key.Vowels[x]][1]
 				}else{ //C
-					console.log("C")
+					//console.log("C")
 					let x = getRandomInt(consmin, consmax+1)
 					indnum[indnum.length] = key.Script[key.Consonants[x]]
 					numbers[0] = numbers[0] + key.Script[key.Consonants[x]][0]
@@ -444,15 +668,6 @@ function init(){ //actually this is more like the "generate me a new problem" fu
 	if(key.Cased && getRandomInt(0,2)==1){
 		document.getElementById("problem").innerHTML = numbers[0].toUpperCase()
 	}
-}
-
-let langdropdown=document.getElementById("lang")
-let ak=Object.keys(alphaKeys)
-for(let i=1;i<ak.length;i++){ //start at 1 to not add hiragana twice
-	let el=document.createElement("option")
-	el.text = ak[i]
-	el.value = ak[i]
-	langdropdown.add(el)
 }
 
 init()
