@@ -30,16 +30,16 @@ Currently there are 8 alphabets implemented. Contributions are welcome. I do not
 -- Probably not Hanzi or Kanji<br>
 - Improve Arabic implementation (vocalisation logic etc)<br>
 - Spaced repetition system?<br>
-- Replace language dropdown with a bespoke folder structure<br>
 - Revamp old bad code
 
 ## Changelog
 
 ### v1.1 - 2025-05-29
 
-Added Greek (Modern & Ancient)
-Added European Cyrillic (Bulgarian, Serbian, Montenegrin, Macedonian, Belarusian, Ukrainian, Moldovan)
-Put settings in its own side modal
+Added Greek (Modern & Ancient)<br>
+Added European Cyrillic (Bulgarian, Serbian, Montenegrin, Macedonian, Belarusian, Ukrainian, Moldovan)<br>
+Put settings in its own side modal<br>
+Replaced language dropdown with a bespoke folder structure
 
 ### v1 - 2025-05-29
 
