@@ -1,7 +1,7 @@
 # alphabet trainer
 A simple webpage for learning scripts, principally for Geoguessr
 
-https://billabob.github.io/AT/trainer.html
+[https://billabob.github.io/AT/trainer.html](https://billabob.github.io/AT/trainer.html)
 
 ## How to use:
 
@@ -34,7 +34,7 @@ Currently there are 8 alphabets implemented. Contributions are welcome. I do not
 
 ## Changelog
 
-### v1.1 - 2025-05-29
+### v1.1 - 2025-06-08
 
 Added Greek (Modern & Ancient)<br>
 Added European Cyrillic (Bulgarian, Serbian, Montenegrin, Macedonian, Belarusian, Ukrainian, Moldovan)<br>
