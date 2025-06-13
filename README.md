@@ -34,6 +34,11 @@ Currently there are 8 alphabets implemented. Contributions are welcome. I do not
 
 ## Changelog
 
+### v1.2 - 2025-06-13
+
+Some internals to make it easier to add languages<br>
+More Cyrillic languages (Bulgarian, Serbian, Montenegrin, Macedonian, Belarusian, Ukrainian, Rusyn, Moldovan, Ossetic, Tajik, Kazakh, Kyrgyz, Tatar, Turkmen, Uzbek, Yakut, Tuvan, Abkhaz, Mongolian, Khabarovsk Ugede, Uilta)
+
 ### v1.1 - 2025-06-08
 
 Added Greek (Modern & Ancient)<br>

@@ -232,7 +232,7 @@ let alphaKeys = { //questions go first, all answers come afterwards
 		["й","y","i","j"],["к","k"],["л","l"],["м","m"],["н","n"],
 		["о","o"],["п","p"],["р","r"],["с","s"],["т","t"],
 		["у","u"],["ф","f"],["х","kh","h"],["ц","ts","c"],["ч","ch","č"],
-		["ш","sh","š"],["щ","sch","shch","šč","śś"],/*["ъ","\"","ʺ"],*/["ы","y"],/*["ь","'","ʹ"],*/
+		["ш","sh","š"],["щ","sch","shch","šč","śś"],["ы","y"],
 		["э","e","è"],["ю","yu","ju"],["я","ya","ja"]],
 		"BlankValues":{},
 		"Cased":true,
@@ -241,8 +241,8 @@ let alphaKeys = { //questions go first, all answers come afterwards
 		"Vowels":[0,5,6,9,15,20,28,29,30]},
 	"Major European Cyrillic":
 		{"Script":
-		[["а","a"],["б","b"],["в","v"],["г","g"],["д","d"],
-		["е","e","je","ye"],["ё","o","jo","yo"],["ж","zh","ž"],["з","z"],["и","i"],
+		[["а","a"],["б","b"],["в","v"],["г","g","h"],["д","d"],
+		["е","e","je","ye"],["ё","o","jo","yo"],["ж","zh","ž","j"],["з","z"],["и","i"],
 		["й","y","i","j"],["к","k"],["л","l"],["м","m"],["н","n"],
 		["о","o"],["п","p"],["р","r"],["с","s"],["т","t"],
 		["у","u"],["ф","f"],["х","kh","h"],["ц","ts","c"],["ч","ch","č"],
@@ -253,51 +253,53 @@ let alphaKeys = { //questions go first, all answers come afterwards
 		["з́","zj","ź"],["с́","sj","ś"], //montenegrin
 		["s","dz"],["ѓ","gj","ǵ"],["ќ","kj","ḱ"], //macedonian //41
 		["і","i"],["ў","w","ŭ"], //belarusian, ukrainian
-		["ґ","g"],["є","ye","ê"],["ї","i","yi","ji"], //ukrainian
-		["ӂ","g","ge","gi"]], //moldovan
+		["ґ","g"],["є","ye","ê"],["ї","yi","i","ji"], //ukrainian
+		["ӂ","g","ge","gi"], //moldovan
+		["ј","j"]], //serbian oops
 		"BlankValues":{},
 		"Cased":true,
 		"Pattern":"CVC",
-		"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27,32,33,34,35,36,37,38,39,40,41,43,44,47],
+		"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27,32,33,34,35,36,37,38,39,40,41,43,44,47,48],
 		"Vowels":[0,5,6,9,15,20,28,29,30,31,42,45,46]},
 	"Cyrillic Soup":
 		{"Script":
 		[["а","a"],["б","b"],["в","v"],["г","g","h"],["д","d"],
-		["е","e","je","ye"],["ё","o","jo","yo"],["ж","zh","ž"],["з","z"],["и","i"],
+		["е","e","je","ye"],["ё","o","jo","yo"],["ж","zh","ž","j"],["з","z"],["и","i"],
 		["й","y","i","j"],["к","k"],["л","l"],["м","m"],["н","n"],
 		["о","o"],["п","p"],["р","r"],["с","s"],["т","t"],
 		["у","u"],["ф","f"],["х","kh","h"],["ц","ts","c"],["ч","ch","č"],
 		["ш","sh","š"],["щ","sch","shch","šč","śś","sht","št"],/*["ъ","\"","ʺ"],*/["ы","y"],/*["ь","'","ʹ"],*/
 		["э","e","è"],["ю","yu","ju"],["я","ya","ja"], //30
 		["ъ","a","ǎ"], //bulgarian
-		["ђ","dj","đ","ď"],["љ","lj","ļ"],["њ","nj","ń","ň","ñ","ņ"],["ћ","ć","tj","tsh"],["џ","dž","dzh"], //serbian
-		["з́","ź","zj"],["с́","ś","sj"], //montenegrin
-		["s","dz"],["ѓ","ǵ","gj"],["ќ","ḱ","kj"], //macedonian //41
+		["ђ","dj","đ","ď"],["љ","lj","ļ"],["њ","nj","ń","ň","ñ","ņ"],["ћ","tj","ć","tsh"],["џ","dzh","dž"], //serbian
+		["з́","zj","ź"],["с́","sj","ś"], //montenegrin
+		["s","dz"],["ѓ","gj","ǵ"],["ќ","kj","ḱ"], //macedonian //41
 		["і","i"],["ў","w","ŭ"], //belarusian, ukrainian, uzbek
-		["ґ","g"],["є","ye","ê"],["ї","i","yi","ji"], //ukrainian
+		["ґ","g"],["є","ye","ê"],["ї","yi","i","ji"], //ukrainian
 		["ӂ","g","ge","gi"], //moldovan
-		["ӕ","æ","ae","ä","u"], //ossetic
-		["ғ","ġ","gh","ğ"],["ӣ","ee","ī"],["қ","q","ķ"],["ӯ","ū","u"],["ҳ","ḩ","h"],["ҷ","j","ç"], //tajik //54
-		["ӧ","ö","oo"], //komi
-		["ҥ","ng"],["ӱ","u","ü"],["ӓ","æ","ae"],["ӹ","ə̟","u"],["ө","ö","ô","oo"],["ӫ","ẙ","u","oo"], //mari //61
-		["ҹ","c","dz"],["ə","ə","ä","u"],["ҝ","g"],["һ","h"],["ү","y"], //azerbaijani (dagestan)
-		["ҡ","q"],["ң","ng"],["ҙ","ź","th"],["ҫ","ś","θ","þ","th"], //bashkir //70
+		["ӕ","ae","æ","ä","u"], //ossetic
+		["ғ","gh","ġ","ğ"],["ӣ","ee","ī"],["қ","q","ķ"],["ӯ","u","ū"],["ҳ","h","ḩ"],["ҷ","j","ç"], //tajik //54
+		["ӧ","oo","ö"], //komi
+		["ҥ","ng"],["ӱ","u","ü"],["ӓ","ae","æ"],["ӹ","u","ə̟"],["ө","oo","ö","ô"],["ӫ","u","ẙ","oo"], //mari //61
+		["ҹ","c","dz"],["ə","u","ə","ä","a","ea"],["ҝ","g"],["һ","h"],["ү","y"], //azerbaijani (dagestan)
+		["ҡ","q"],["ң","ng"],["ҙ","th","ź"],["ҫ","th","ś","θ","þ"], //bashkir //70
 		["ӑ","ah","ă","ä"],["ӗ","eh","ӗ"],["ӳ","uh","ü"], //chuvash
-		["ұ","ū","oo"], //kazakh
-		["җ","ç","c","j"], //tatar, turkmen
+		["ұ","oo","ū"], //kazakh
+		["җ","c","ç","j"], //tatar, turkmen
 		["ҕ","gh"], //yakut
 		["ӌ","j"], //khakas
 		["ӈ","ng"], //dolgan
-		["ӷ","ğ","gh"],["ҟ","qʼ","q'"],["ԥ","p"],["ҭ","t"],["ҳ","h"],["ҵ","c̄","ts","ts'"], //abkhaz //84
-		["ҽ","tch","tsh"],["ҿ","tch","tch'","tsh","tsh'"],["ҩ","ọ","ò","ui"], //abkhaz
+		["ӷ","gh","ğ"],["ҟ","q'","qʼ"],["ԥ","p"],["ҭ","t"],["ҳ","h"],["ҵ","ts","c̄","ts'"], //abkhaz //84
+		["ҽ","tch","tsh"],["ҿ","tch","tch'","tsh","tsh'"],["ҩ","ui","ọ","ò"], //abkhaz
 		["ӄ","q"],["ԓ","ll"], //chukchi
 		["д̆","th"], //bering aleut //90
-		["ӽ","kh"]], //chaplino yupik
+		["ӽ","kh"], //chaplino yupik
+		["ј","j"]], //serbian oops
 		"BlankValues":{},
 		"Cased":true,
 		"Pattern":"CVC",
 		"Consonants":[1,2,3,4,7,8,10,11,12,13,14,16,17,18,19,21,22,23,24,25,26,27,32,33,34,35,36,37,38,39,40,
-			41,43,44,47,49,51,53,54,56,62,64,65,66,67,68,69,70,75,76,77,78,79,80,81,82,83,84,85,86,88,89,90,91],
+			41,43,44,47,49,51,53,54,56,62,64,65,66,67,68,69,70,75,76,77,78,79,80,81,82,83,84,85,86,88,89,90,91,92],
 		"Vowels":[0,5,6,9,15,20,28,29,30,31,42,45,46,48,50,52,55,57,58,59,60,61,63,71,72,73,74,87]},
 	"Modern Greek":
 		{"Script":
@@ -349,15 +351,279 @@ let alphaKeys = { //questions go first, all answers come afterwards
 		"Vowels":[0,4,8,14,20]}
 	}
 
+//alphabets that are slight modifications of others
+
+//do this highest to lowest because indices change
+function removeChar(alphabet,charIndex){
+	alphabet.Script.splice(charIndex,1)
+	let cv = ["Vowels","Consonants"]
+	for(let i=0;i<2;i++){
+		let as=alphabet[cv[i]]
+		if(as===undefined){continue}
+		for(let n=0;n<as.length;n++){
+			//console.log(as[n])
+			//if(as[n]<charIndex){continue}
+			if(as[n]>charIndex){as[n]--}
+			if(as[n]==charIndex){
+				as.splice(n,1)
+				n--
+			}
+		}
+	}
+	let bv=alphabet.BlankValues
+	let bvk=Object.keys(bv)
+	for(let i=0;i<bvk.length;i++){
+		if(bvk[i]==charIndex){
+			delete bv[bvk[i]]
+		}
+		if(bvk[i]>charIndex){
+			bv[bvk[i]-1] = bv[bvk[i]]
+			delete bv[bvk[i]]
+		}
+	}
+}
+
+//only add to the end because i'm lazy
+function addChar(alphabet,charDef,isVowel=0){ //leave isVowel blank if not CVC
+	//console.log(charDef)
+	let asl=alphabet.Script.length
+	alphabet.Script[asl]=charDef
+	if(isVowel===0){return}
+	if(isVowel){
+		alphabet.Vowels[alphabet.Vowels.length]=asl
+	}else{
+		alphabet.Consonants[alphabet.Consonants.length]=asl
+	}
+}
+
+alphaKeys.Bulgarian = structuredClone(alphaKeys.Russian)
+alphaKeys.Bulgarian.Script[26] = ["щ","sht","št"]
+removeChar(alphaKeys.Bulgarian,28) //э
+removeChar(alphaKeys.Bulgarian,6) //ё
+addChar(alphaKeys.Bulgarian,["ъ","a","ǎ"],true)
+
+alphaKeys.Serbian = structuredClone(alphaKeys.Russian)
+alphaKeys.Serbian.Script[23] = ["ц","c","ts"]
+removeChar(alphaKeys.Serbian,30) //я
+removeChar(alphaKeys.Serbian,29) //ю
+removeChar(alphaKeys.Serbian,28) //э
+removeChar(alphaKeys.Serbian,27) //ы
+removeChar(alphaKeys.Serbian,26) //щ
+removeChar(alphaKeys.Serbian,10) //й
+removeChar(alphaKeys.Serbian,6) //ё
+addChar(alphaKeys.Serbian,["ђ","dj","đ","ď"],false)
+addChar(alphaKeys.Serbian,["ј","j"],false)
+addChar(alphaKeys.Serbian,["љ","lj","ļ"],false)
+addChar(alphaKeys.Serbian,["њ","nj","ń","ň","ñ","ņ"],false)
+addChar(alphaKeys.Serbian,["ћ","tj","ć","tsh"],false)
+addChar(alphaKeys.Serbian,["џ","dzh","dž"],false)
+
+alphaKeys.Montenegrin = structuredClone(alphaKeys.Serbian)
+addChar(alphaKeys.Montenegrin,["з́","zj","ź"],false)
+addChar(alphaKeys.Montenegrin,["с́","sj","ś"],false)
+
+alphaKeys.Macedonian = structuredClone(alphaKeys.Serbian)
+removeChar(alphaKeys.Macedonian,28) //ћ
+removeChar(alphaKeys.Macedonian,24) //ђ
+addChar(alphaKeys.Macedonian,["s","dz"],false)
+addChar(alphaKeys.Macedonian,["ѓ","gj","ǵ"],false)
+addChar(alphaKeys.Macedonian,["ќ","kj","ḱ"],false)
+
+alphaKeys.Belarusian = structuredClone(alphaKeys.Russian)
+alphaKeys.Belarusian.Script[3] = ["г","h","gh"]
+removeChar(alphaKeys.Belarusian,26)
+removeChar(alphaKeys.Belarusian,9)
+addChar(alphaKeys.Belarusian,["і","i"],true)
+addChar(alphaKeys.Belarusian,["ў","w","ŭ"],false)
+
+alphaKeys.Ukrainian = structuredClone(alphaKeys.Russian)
+alphaKeys.Ukrainian.Script[3] = ["г","h","gh"]
+removeChar(alphaKeys.Ukrainian,27)
+removeChar(alphaKeys.Ukrainian,6)
+addChar(alphaKeys.Ukrainian,["ґ","g"],false)
+addChar(alphaKeys.Ukrainian,["є","ye","ê"],true)
+addChar(alphaKeys.Ukrainian,["і","i"],true)
+addChar(alphaKeys.Ukrainian,["ї","yi","i","ji"],true)
+
+alphaKeys.Rusyn = structuredClone(alphaKeys.Ukrainian)
+addChar(alphaKeys.Rusyn,["ё","o","jo","yo"],true)
+addChar(alphaKeys.Rusyn,["ы","y"],true)
+
+alphaKeys.Moldovan = structuredClone(alphaKeys.Russian)
+alphaKeys.Moldovan.Script[7] = ["ж","j"]
+removeChar(alphaKeys.Moldovan,26)
+removeChar(alphaKeys.Moldovan,6)
+addChar(alphaKeys.Moldovan,["ӂ","g","ge","gi"],false)
+
+alphaKeys.Ossetic = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Ossetic,["ӕ","ae","æ","ä","u"],true)
+addChar(alphaKeys.Ossetic,["гъ","gh","ğ"],false)
+addChar(alphaKeys.Ossetic,["хъ","q"],false)
+
+alphaKeys.Tajik = structuredClone(alphaKeys.Russian)
+removeChar(alphaKeys.Tajik,26)
+removeChar(alphaKeys.Tajik,23)
+addChar(alphaKeys.Tajik,["ғ","gh","ġ","ğ"],false)
+addChar(alphaKeys.Tajik,["ӣ","ee","ī"],true)
+addChar(alphaKeys.Tajik,["қ","q","ķ"],false)
+addChar(alphaKeys.Tajik,["ӯ","u","ū"],true)
+addChar(alphaKeys.Tajik,["ҳ","h","ḩ"],false)
+addChar(alphaKeys.Tajik,["ҷ","j","ç"],false)
+
+alphaKeys.Kazakh = structuredClone(alphaKeys.Tajik)
+removeChar(alphaKeys.Kazakh,34)
+removeChar(alphaKeys.Kazakh,33)
+removeChar(alphaKeys.Kazakh,32)
+removeChar(alphaKeys.Kazakh,30)
+addChar(alphaKeys.Kazakh,["ә","a","ä","ă"],true)
+addChar(alphaKeys.Kazakh,["ң","ng"],false)
+addChar(alphaKeys.Kazakh,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Kazakh,["ұ","oo","u","ū"],true)
+addChar(alphaKeys.Kazakh,["ү","oo","u","ū","ù"],true)
+addChar(alphaKeys.Kazakh,["һ","h"],false)
+addChar(alphaKeys.Kazakh,["і","i"],true)
+addChar(alphaKeys.Kazakh,["ц","ts","c"],false)
+addChar(alphaKeys.Kazakh,["щ","sch","shch","šč"],false)
+
+alphaKeys.Kyrgyz = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Kyrgyz,["ң","ng"],false)
+addChar(alphaKeys.Kyrgyz,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Kyrgyz,["ү","oo","u","ū","ù"],true)
+
+alphaKeys.Tatar = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Tatar,["ә","a","ä","ă"],true)
+addChar(alphaKeys.Tatar,["җ","c","dzh","j","zhj"],false)
+addChar(alphaKeys.Tatar,["ң","ng"],false)
+addChar(alphaKeys.Tatar,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Tatar,["ү","oo","u","ū","ù"],true)
+addChar(alphaKeys.Tatar,["һ","h"],false)
+
+alphaKeys.Turkmen = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Turkmen,["җ","j","dzh","zhj"],false)
+addChar(alphaKeys.Turkmen,["ң","ng"],false)
+addChar(alphaKeys.Turkmen,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Turkmen,["ү","oo","u","ū","ù"],true)
+addChar(alphaKeys.Turkmen,["ә","ea","ä","ă"],true)
+
+alphaKeys.Uzbek = structuredClone(alphaKeys.Russian)
+alphaKeys.Uzbek.Script[3] = ["в","w"]
+alphaKeys.Uzbek.Script[7] = ["ж","dzh","dž","dj"]
+removeChar(alphaKeys.Uzbek,27)
+removeChar(alphaKeys.Uzbek,26)
+addChar(alphaKeys.Uzbek,["ў","w","ŭ"],false)
+addChar(alphaKeys.Uzbek,["қ","q","ķ"],false)
+addChar(alphaKeys.Uzbek,["ғ","gh","ġ","ğ"],false)
+addChar(alphaKeys.Uzbek,["ҳ","h","ḩ"],false)
+
+alphaKeys.Yakut = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Yakut,["ҕ","gh"],false)
+addChar(alphaKeys.Yakut,["дь","dzh","j","ç"],false)
+addChar(alphaKeys.Yakut,["ҥ","ng"],false)
+addChar(alphaKeys.Yakut,["нь","nj","ny"],false)
+addChar(alphaKeys.Yakut,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Yakut,["һ","h"],false)
+addChar(alphaKeys.Yakut,["ү","oo","u","ū","ù"],true)
+
+alphaKeys.Tuvan = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Tuvan,["ҥ","ng"],false)
+addChar(alphaKeys.Tuvan,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Tuvan,["ү","oo","u","ū","ù"],true)
+
+alphaKeys.Abkhaz = structuredClone(alphaKeys.Russian)
+removeChar(alphaKeys.Abkhaz,30)
+removeChar(alphaKeys.Abkhaz,29)
+removeChar(alphaKeys.Abkhaz,28)
+removeChar(alphaKeys.Abkhaz,26)
+removeChar(alphaKeys.Abkhaz,10)
+removeChar(alphaKeys.Abkhaz,6)
+addChar(alphaKeys.Abkhaz,["ӷ","gh","ğ"],false)
+addChar(alphaKeys.Abkhaz,["ӡ","dz"],false)
+addChar(alphaKeys.Abkhaz,["қ","q","ķ"],false)
+addChar(alphaKeys.Abkhaz,["ҟ","q'","qʼ"],false)
+addChar(alphaKeys.Abkhaz,["ԥ","p"],false)
+addChar(alphaKeys.Abkhaz,["ҭ","th","t"],false)
+addChar(alphaKeys.Abkhaz,["ҳ","h"],false)
+addChar(alphaKeys.Abkhaz,["ҵ","ts","c̄","ts'"],false)
+addChar(alphaKeys.Abkhaz,["ҷ","tsh"],false)
+addChar(alphaKeys.Abkhaz,["ҽ","tch","tsh"],false)
+addChar(alphaKeys.Abkhaz,["ҿ","tch","tch'","tsh","tsh'"],false)
+addChar(alphaKeys.Abkhaz,["ҩ","ui","ọ","ò"],true)
+addChar(alphaKeys.Abkhaz,["џ","dz"],false)
+
+alphaKeys.Mongolian = structuredClone(alphaKeys.Russian)
+addChar(alphaKeys.Mongolian,["ө","oo","ö","ô"],true)
+addChar(alphaKeys.Mongolian,["ү","oo","u","ū","ù"],true)
+
+alphaKeys.Udege = structuredClone(alphaKeys.Russian)
+alphaKeys.Udege.Script[28] = ["э","u","ә"]
+alphaKeys.Udege.Script[2] = ["в","w"]
+removeChar(alphaKeys.Udege,30)
+removeChar(alphaKeys.Udege,29)
+removeChar(alphaKeys.Udege,27)
+removeChar(alphaKeys.Udege,26)
+removeChar(alphaKeys.Udege,25)
+removeChar(alphaKeys.Udege,23)
+removeChar(alphaKeys.Udege,7)
+removeChar(alphaKeys.Udege,6)
+removeChar(alphaKeys.Udege,5)
+addChar(alphaKeys.Udege,["'","'"],false) //this is a laryngeal stop i have no idea how to pronounce or romanise this
+addChar(alphaKeys.Udege,["ғ","gh"],false)
+addChar(alphaKeys.Udege,["њ","nj","ny"],false)
+addChar(alphaKeys.Udege,["ō","oo"],true)
+addChar(alphaKeys.Udege,["э̄","uu","əə"],true)
+addChar(alphaKeys.Udege,["ӯ","uu"],true)
+addChar(alphaKeys.Udege,["ӣ","ii"],true)
+addChar(alphaKeys.Udege,["ā","aa"],true)
+addChar(alphaKeys.Udege,["о̂","oho"],true)
+addChar(alphaKeys.Udege,["э̂","uhu"],true)
+addChar(alphaKeys.Udege,["ŷ","uhu"],true)
+addChar(alphaKeys.Udege,["и̂","ihi"],true)
+addChar(alphaKeys.Udege,["â","aha"],true)
+addChar(alphaKeys.Udege,["ӧ̄","ye"],false)
+addChar(alphaKeys.Udege,["ӱ̄","yi","yy"],true)
+addChar(alphaKeys.Udege,["ӡ","dz","j"],false)
+addChar(alphaKeys.Udege,["ӈ","n"],false)
+
+alphaKeys.Uilta = structuredClone(alphaKeys.Russian)
+alphaKeys.Uilta.Script[8] = ["ӡ","dz","j","g"]
+alphaKeys.Uilta.Script[2] = ["в","w"]
+removeChar(alphaKeys.Uilta,30)
+removeChar(alphaKeys.Uilta,29)
+removeChar(alphaKeys.Uilta,27)
+removeChar(alphaKeys.Uilta,26)
+removeChar(alphaKeys.Uilta,25)
+removeChar(alphaKeys.Uilta,23)
+removeChar(alphaKeys.Uilta,21)
+removeChar(alphaKeys.Uilta,6)
+addChar(alphaKeys.Uilta,["ј","j"],false)
+addChar(alphaKeys.Uilta,["ԩ","nj","ny"],false)
+addChar(alphaKeys.Uilta,["ӈ","ng"],false)
+addChar(alphaKeys.Uilta,["а̄","aa"],false)
+addChar(alphaKeys.Uilta,["е̄","ee"],false)
+addChar(alphaKeys.Uilta,["ӣ","ii"],false)
+addChar(alphaKeys.Uilta,["о̄","oo"],false)
+addChar(alphaKeys.Uilta,["ө̄","uu"],false)
+addChar(alphaKeys.Uilta,["ӯ","uu"],false)
+addChar(alphaKeys.Uilta,["э̄","ee"],false)
+
+
 let folderStructure = {
 	"Kana":{"Hiragana":"ひ","Katakana":"カ"},
 	"Cyrillic":{
-		"Europe":{"Russian":"Ж","Major European Cyrillic":"Є"},
-		"Asia":{"Russian":"Ж"},
+		"Europe":{"Russian":"Ж","Bulgarian":"Б","Serbian":"Ђ","Montenegrin":"З́","Macedonian":"Ќ","Belarusian":"Ў","Ukrainian":"Ї","Rusyn":"Я","Moldovan":"Ӂ","Ossetic":"Ӕ","Abkhaz":"Ҩ","Tatar":"Җ","Major European Cyrillic":"Є"},
+		"Asia":{"Russian":"Ж","Ossetic":"Ӕ","Abkhaz":"Ҩ","Tajik":"Ӯ","Kyrgyz":"К","Turkmen":"Т","Uzbek":"Қ","Yakut":"Нь","Tuvan":"Т","Mongolian":"Ө","Udege":"Э̄","Uilta":"Ԩ"},
 		"Cyrillic Soup":"Ӄ"
 	},
-	"Europe":{"Dutch":"IJ","Russian":"Ж","Greek":{"Ancient Greek":"Ω","Modern Greek":"Ψ"}},
-	"Asia":{"Russian":"Ж","Arabic Consonants":"خ","Kana":{"Hiragana":"ひ","Katakana":"カ"}},
+	"Europe":{
+		"Cyrillic":{"Russian":"Ж","Bulgarian":"Б","Serbian":"Ђ","Montenegrin":"З́","Macedonian":"Ќ","Belarusian":"Ў","Ukrainian":"Ї","Rusyn":"Я","Moldovan":"Ӂ","Ossetic":"Ӕ","Abkhaz":"Ҩ","Tatar":"Җ"},
+		"Greek":{"Ancient Greek":"Ω","Modern Greek":"Ψ"},
+		"Dutch":"IJ"
+	},
+	"Asia":{
+		"Cyrillic":{"Russian":"Ж","Ossetic":"Ӕ","Abkhaz":"Ҩ","Tajik":"Ӯ","Kyrgyz":"К","Turkmen":"Т","Uzbek":"Қ","Yakut":"Нь","Tuvan":"Т","Mongolian":"Ө","Udege":"Э̄","Uilta":"Ԩ"},
+		"Arabic Consonants":"خ",
+		"Kana":{"Hiragana":"ひ","Katakana":"カ"}
+	},
 	"Africa":{"Arabic Consonants":"خ"}
 }
 
@@ -386,7 +652,7 @@ function closeFolder(folder){
 }
 
 function openFolder(folder){ //parent is the path string like "folderbox.Asia"
-	console.log(folder)
+	//console.log(folder)
 	let fb=document.getElementById(folder)
 	let fc=folderChildren[folder]
 	
