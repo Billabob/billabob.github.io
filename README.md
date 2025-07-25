@@ -1,9 +1,9 @@
 # KenKen Solver
 A rating program for KenKen or Calcudoku puzzles. Fully logical, step-by-step solutions. Still a work in progress.
 
-[Direct Link](https://billabob.github.io/KS/kenkensolver.html) - [ReadMe](https://github.com/Billabob/billabob.github.io/blob/main/KS/README.md)
+[Direct Link](https://billabob.github.io/kenkensolver/kenkensolver.html) - [ReadMe](https://billabob.github.io/kenkensolver/)
 
 # alphabet trainer
 A simple webpage for learning scripts, principally for Geoguessr
 
-[Direct Link](https://billabob.github.io/AT/trainer.html) - [ReadMe](https://github.com/Billabob/billabob.github.io/blob/main/AT/README.md)
+[Direct Link](https://billabob.github.io/alphabet-trainer/trainer.html) - [ReadMe](https://billabob.github.io/alphabet-trainer/)
