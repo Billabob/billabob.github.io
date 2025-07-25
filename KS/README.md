@@ -59,7 +59,7 @@ b = Both, will output the results for n and c next to each other.
 
 ## Solver
 
-This page implements a heirarchical solver & grading system, similar to the SE rating scale used to rate Sudoku puzzles. Everything is currently a work in progress and impermanent. Expect rankings & weights to change in the near future as I revamp things and implement more techniques.
+This page implements a hierarchical solver & grading system, similar to the SE rating scale used to rate Sudoku puzzles. Everything is currently a work in progress and impermanent. Expect rankings & weights to change in the near future as I revamp things and implement more techniques.
 
 Each step of the solver starts with the most basic techniques and climbs the ladder of difficulty until the puzzle finally yields and a candidate/cage combination is eliminated. After this a new step begins and the solver goes back to the basic techniques and climbs again. This repeats until the puzzle is solved. Puzzles are graded based on the hardest technique required to solve the puzzle, no matter how many times the technique is used.
 
