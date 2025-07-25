@@ -110,13 +110,15 @@ Solver:<br>
 - Set Equivalence Theory<br>
 - Region Products<br>
 - Check for valid assignments in region total solver<br>
-- Look into saving calculated sums/parities & applying them as strong links in the AIC solver<br>
+- Look into saving calculated sums/parities & applying them as strong links in the AIC solver
+
 Site:<br>
 - Interactive grid input<br>
 - Playable puzzles<br>
 - Combination view per cage<br>
 - r1c1 = a1 toggle<br>
-- Visually-friendly hint button that displays move without executing it<br>
+- Visually-friendly hint button that displays move without executing it
+
 Other stuff:<br>
 - Solve every 4x4<br>
 - Puzzle generator & fast bruteforce solver
